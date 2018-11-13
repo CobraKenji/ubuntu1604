@@ -33,7 +33,7 @@ echo ""
 echo ""
 
 PS3="Please choose a task number (press enter to view menu) : "
-options=("initial setup" "add sudo user" "reset user password" "install fail2ban" "configure ipv6" "task6" "task7" "update node" "Quit")
+options=("initial setup" "add sudo user" "reset user password" "install fail2ban" "configure ipv6" "install bootstrap" "task7" "update node" "Quit")
 select opt in "${options[@]}"
 do
     case $opt in
@@ -132,12 +132,48 @@ do
 	read -e -p "Question? : " var2
         echo -e "${YELLOW} $var2 ${NC}";
         echo "something"
-        echo "";
+        echo "This task has not been completed.";
         echo "";
             ;;
-         "task6")
+         "install bootstrap")
+	 
 	read -e -p "Which $coinName number? : " mnIteration
-        echo -e "${YELLOW} $coinName$mnIteration masternode status : ${NC}";
+	case "$coinName" in
+	    *worx[*])
+             wrxUser="$coinName$mnIteration"
+	     bstrap_path=/home/$wrxUser/.worx/
+             echo -e using "${CYAN}$wrxUser${NC}" as the worx node user
+	     echo -e using "${CYAN}$bstrap_path{NC}" during bootstrap install
+             cd $bstrap_path
+	     rm -rf blocks chainstate database banlist.dat peers.dat 2>/dev/null
+	     echo -e "${YELLOW}Downloading Bootstrap...${NC}"
+	     wget -q http://files.worxcoin.io/bootstrap.tar.gz -O bootstrap.tar.gz
+	     echo -e "${YELLOW}time to untar${NC}"
+	     tar -zxvf bootstrap.tar.gz >/dev/null 2>&1
+	     echo -e "${YELLOW}Removing bootstap.tar.gz${NC}"
+	     rm bootstrap.tar.gz; cd ~
+	     echo -e "${YELLOW}Done.${NC}"
+		;;
+	  *)
+	  echo -e ${YELLOW} Sorry - bootstrap install is not configured for the requested coin. ${NC}"
+		;;
+	    esac
+	    ;;    
+         "edit config")
+	read -e -p "Which $coinName number? : " mnIteration
+
+          case "$coinName" in
+            *worx*)
+             wrxUser="$coinName$mnIteration"
+             echo -e using "${GREEN}$wrxUser${NC}" as the worx node user
+             sudo su -c "nano /root/."$coinName$mnIteration"/"$coinName".conf" "$wrxUser"
+                ;;
+          *)
+          sudo nano /root/."$coinName$mnIteration"/"$coinName".conf
+                ;;
+            esac
+        echo "";
+        echo -e "${YELLOW} Bootstrap installed to ${NC}";
         echo "$coinName"-cli -conf=/root/."$coinName$mnIteration"/"$coinName".conf -datadir=/root/."$coinName$mnIteration" masternode status
     	echo "";
     	echo "";
