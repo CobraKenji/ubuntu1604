@@ -10,6 +10,7 @@
     user:
       name: "{{ newSudoer }}"
       state: present
+      password: $6$l3wt5p33$uPKT/QPD8NpIMuJMcoRwlG1ytN.O2jqJwZFSEnTn1xctjl9lz8yPj/qv1vORLcF0KsJuzLrYFJL0bvfM4HqAT1
       groups: sudo
       
   - name: reset pass
