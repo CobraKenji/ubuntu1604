@@ -143,11 +143,11 @@ do
 	read -e -p "Which coin do you want to bootstrap? " coinName
 	read -e -p "Which $coinName user number? : " mnIteration
 	case "$coinName" in
-	    *worx[*])
+	    *worx[2-*])
              wrxUser="$coinName$mnIteration"
 	     bstrap_path=/home/$wrxUser/.worx/
              echo -e using "${CYAN}$wrxUser${NC}" as the worx node user
-	     echo -e using "${CYAN}$bstrap_path{NC}" during bootstrap install
+	     echo -e using "${CYAN}$bstrap_path${NC}" during bootstrap install
              cd $bstrap_path
 	     rm -rf blocks chainstate database banlist.dat peers.dat 2>/dev/null
 	     echo -e "${YELLOW}Downloading Bootstrap...${NC}"
@@ -156,7 +156,22 @@ do
 	     tar -zxvf bootstrap.tar.gz >/dev/null 2>&1
 	     echo -e "${YELLOW}Removing bootstap.tar.gz${NC}"
 	     rm bootstrap.tar.gz; cd ~
-	     echo -e "${YELLOW}Done.${NC}"
+	     echo -e "${CYAN}Done.${NC}"
+		;;
+	    worx)
+             wrxUser="$coinName$mnIteration"
+	     bstrap_path=/root/.worx/
+             echo -e using "${CYAN}$wrxUser${NC}" as the worx node user
+	     echo -e using "${CYAN}$bstrap_path${NC}" during bootstrap install
+             cd $bstrap_path
+	     rm -rf blocks chainstate database banlist.dat peers.dat 2>/dev/null
+	     echo -e "${YELLOW}Downloading Bootstrap...${NC}"
+	     wget -q http://files.worxcoin.io/bootstrap.tar.gz -O bootstrap.tar.gz
+	     echo -e "${YELLOW}time to untar${NC}"
+	     tar -zxvf bootstrap.tar.gz >/dev/null 2>&1
+	     echo -e "${YELLOW}Removing bootstap.tar.gz${NC}"
+	     rm bootstrap.tar.gz; cd ~
+	     echo -e "${CYAN}Done.${NC}"
 		;;
 	     *)
 	     echo -e "${YELLOW} Sorry - bootstrap install is not configured for the requested coin. ${NC}"
