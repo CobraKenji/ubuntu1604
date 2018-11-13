@@ -12,8 +12,8 @@
       state: present
       groups: sudo
       
-   - name: reset pass
-     command: sudo passwd "{{ newSudoer }}"
+  - name: reset pass
+    command: sudo passwd "{{ newSudoer }}"
 
   #- name: Ensure passwordless sudo for '{{ newSudoer }}'
   #  lineinfile:
