@@ -136,8 +136,9 @@ do
         echo "";
             ;;
          "install bootstrap")
-	 
-	read -e -p "Which $coinName number? : " mnIteration
+	echo 'coins with available bootstrap installers: worx '
+	read -e -p "Which coin do you want to bootstrap? " coinName
+	read -e -p "Which $coinName user number? : " mnIteration
 	case "$coinName" in
 	    *worx[*])
              wrxUser="$coinName$mnIteration"
