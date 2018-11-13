@@ -136,7 +136,10 @@ do
         echo "";
             ;;
          "install bootstrap")
+	echo -e ""
+	echo -e "${CYAN} --- ${NC}"
 	echo 'coins with available bootstrap installers: worx '
+	echo -e "${CYAN} --- ${NC}"
 	read -e -p "Which coin do you want to bootstrap? " coinName
 	read -e -p "Which $coinName user number? : " mnIteration
 	case "$coinName" in
