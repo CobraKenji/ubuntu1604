@@ -154,8 +154,8 @@ do
 	     rm bootstrap.tar.gz; cd ~
 	     echo -e "${YELLOW}Done.${NC}"
 		;;
-	  *)
-	  echo -e ${YELLOW} Sorry - bootstrap install is not configured for the requested coin. ${NC}"
+	     *)
+	     echo -e "${YELLOW} Sorry - bootstrap install is not configured for the requested coin. ${NC}"
 		;;
 	    esac
 	    ;;    
